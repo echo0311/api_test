@@ -31,6 +31,10 @@ class OperationIni(object):
         data = self.cf.items(section)
         return dict(data)
 
+    # 删除setion下的一项数据
+    def remove_value(self,section, option):
+        self.cf.remove_option(section,option)
+
     # 写数据
     def write_value(self, section, option, value):
         self.cf.set(section, option, value)

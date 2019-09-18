@@ -2,6 +2,7 @@
 from base.api_requests import RunMethod
 from util.operation_ini import OperationIni
 from util.operation_header import OperationHeader
+from util.operation_json import OperationJson
 from data.get_data import GetData
 from util.operation_vdc import OperationVDC
 
@@ -27,7 +28,7 @@ class ApiBase(object):
     def get_path_xls(self, rowx):
         return self.data.get_url(rowx)
 
-    def get_url(self, rowx, vapp_id=None):
+    def get_url_xls(self, rowx, vapp_id=None):
         ip = self.get_host()
         path_xls = self.get_path_xls(rowx)
         vdc_id = self.get_vdc_id()
@@ -55,10 +56,32 @@ class ApiBase(object):
         return self.data.get_request_for_json(rowx)
 
     def request_get(self, path, headers):
-        url = self.get_url(path)
+        url = self.get_url_xls(path)
         res = self.run.run_main(url, 'GET', headers=headers)
         print(res)
 
+
+class BaseAPI(object):
+    def __init__(self):
+        self.oper_ini = OperationIni()
+        self.oper_h = OperationHeader()
+        self.run = RunMethod()
+        self.oper_json = OperationJson()
+
+    def get_host(self):
+        host = self.oper_ini.get_value('host', 'url')
+        return host
+
+    def get_url(self, path):
+        url = self.get_host() + path
+        return url
+
+    def get_header(self, accept=None, content_type=None):
+        headers = self.oper_h.get_headers(accept, content_type)
+        return headers
+
+    def get_request_data(self, key):
+        return self.oper_json.get_data(key)
 
 if __name__ == '__main__':
     path = '/api/cloud/virtualdatacenters'

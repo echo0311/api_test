@@ -1,8 +1,55 @@
 {
-	"virtualappliances":{"startwith":0,"limit":30},
-	"enterprise":{"enterprise":1},
-	"vapps": {"startwith":0,"limit":30},
-	"add_vapp": {"name":"test1", "center":"VDC"},
-	"users": {"idUserGroup":1,"startwith":0,"limit":30},
-	"add_user": {"idUserGroup":1,"name":"test1","email":"test@123.com","nick":"test1","password":"123456","surePassword":"123456","role":"1","resourceApplication":"","active":true,"links":[{"title":"超级管理员","rel":"role","type":"application/vnd.esage.role+json","href":"https://192.168.3.112:443/api/admin/roles/1"},{"title":"privileges","rel":"privileges","type":"application/vnd.esage.privileges+json","href":"https://192.168.3.112:443/api/admin/roles/1/action/privileges"},{"title":"Global scope","rel":"scope","type":"application/vnd.esage.scope+json","href":"https://192.168.3.112:443/api/admin/scopes/1"}],"surname":"默认分组","locale":"en_US"}
+  "virtualappliances": {
+    "startwith": 0,
+    "limit": 30
+  },
+  "enterprise": {
+    "enterprise": 1
+  },
+  "vapps": {
+    "startwith": 0,
+    "limit": 30
+  },
+  "add_vapp": {
+    "name": "test1",
+    "center": "VDC"
+  },
+  "users": {
+    "idUserGroup": 1,
+    "startwith": 0,
+    "limit": 30
+  },
+  "add_user": {
+    "idUserGroup": 1,
+    "name": "test",
+    "email": "test@123.com",
+    "nick": "test",
+    "password": "test@123",
+    "surePassword": "test@123",
+    "role": "1",
+    "resourceApplication": "",
+    "active": true,
+    "links": [
+      {
+        "title": "超级管理员",
+        "rel": "role",
+        "type": "application/vnd.esage.role+json",
+        "href": "https://192.168.3.180:443/api/admin/roles/1"
+      },
+      {
+        "title": "privileges",
+        "rel": "privileges",
+        "type": "application/vnd.esage.privileges+json",
+        "href": "https://192.168.3.180:443/api/admin/roles/1/action/privileges"
+      },
+      {
+        "title": "Global scope",
+        "rel": "scope",
+        "type": "application/vnd.esage.scope+json",
+        "href": "https://192.168.3.112:443/api/admin/scopes/1"
+      }
+    ],
+    "surname": "默认分组",
+    "locale": "en_US"
+  }
 }

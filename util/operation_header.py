@@ -17,13 +17,15 @@ class OperationHeader:
         获取cookie的jar文件
         '''
         url = self.oper_ini.get_value('host', 'url') + '/api/login'
-        # 账号:auto  密码:123456
+        # 账号:auto  密码:auto@123
         headers = {
-            "Authorization": "Basic YXV0bzoxMjM0NTY="
+            "Authorization": "Basic YXV0bzphdXRvQDEyMw==",
+            "Accept": "application/vnd.esage.login+json;version=3.0"
         }
         res = requests.get(url, headers=headers, verify=False)
         return res.cookies
 
+    # 第一种方式将cookie信息写入json文件中  ../dataconfig/cookies.json
     # 将cookie文件写到json中
     def write_cookie(self):
         cookie = requests.utils.dict_from_cookiejar(self.request_cookie())
@@ -37,6 +39,7 @@ class OperationHeader:
             cookie.append('%s=%s' % (key, value))
         return ';'.join(cookie)
 
+    # 第二种方式将cookie信息写入配置文件中 ../config/base.ini   (默认使用这种方式)
     # 将cookie文件写入配置文件中
     def write_cookie_ini(self):
         data = requests.utils.dict_from_cookiejar(self.request_cookie())
@@ -52,18 +55,19 @@ class OperationHeader:
         return cookie
 
     # 从配置文件中读取headers信息
-    def get_headers(self,accept=None,content_type=None):
+    def get_headers(self, accept=None, content_type=None):
         headers_option = self.oper_ini.get_options('headers')
         if 'cookie' in headers_option:
-            headers = self.oper_ini.get_items('headers')
-        else:
-            self.write_cookie_ini()
-            headers = self.oper_ini.get_items('headers')
+            # headers = self.oper_ini.get_items('headers')
+            self.oper_ini.remove_value('headers','cookie')
+        self.write_cookie_ini()
+        headers = self.oper_ini.get_items('headers')
         if accept is not None:
             headers['Accept'] = accept
         if content_type is not None:
             headers['Content-Type'] = content_type
         return headers
+
 
 if __name__ == '__main__':
     oper = OperationHeader()
