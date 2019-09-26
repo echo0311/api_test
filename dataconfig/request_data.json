@@ -51,5 +51,71 @@
     ],
     "surname": "默认分组",
     "locale": "en_US"
-  }
+  },
+  "edit_user": {
+    "accountBalance": 0,
+    "active": true,
+    "allowApplication": false,
+    "authType": "ESAGE",
+    "blocked": false,
+    "charged": false,
+    "creationDate": "2019-09-19T09:54:17.000+0000",
+    "desktopUser": false,
+    "email": "12345656@qq.com",
+    "enable2fa": false,
+    "globalRole": false,
+    "hidden": false,
+    "id": 33,
+    "idEnterprise": 1,
+    "idUserGroup": 1,
+    "isUseEmail": false,
+    "isUsePhone": false,
+    "isUseWeChat": false,
+    "linked": false,
+    "links": [
+        {
+            "title": "Default",
+            "rel": "enterprise",
+            "type": "application/vnd.esage.enterprise+json",
+            "href": "https://192.168.3.184:443/api/admin/enterprises/1"
+        },
+        {
+            "title": "超级管理员",
+            "rel": "role",
+            "type": "application/vnd.esage.role+json",
+            "href": "https://192.168.3.184:443/api/admin/roles/1"
+        },
+        {
+            "title": "超级管理员",
+            "rel": "edit",
+            "type": "application/vnd.esage.user+json",
+            "href": "https://192.168.3.184:443/api/admin/enterprises/1/users/33"
+        },
+        {
+            "title": "virtual machines",
+            "rel": "virtualmachines",
+            "type": "application/vnd.esage.virtualmachines+json",
+            "href": "https://192.168.3.184:443/api/admin/enterprises/1/users/33/action/virtualmachines"
+        },
+        {
+            "title": "pending tasks",
+            "rel": "pendingtasks",
+            "type": "application/vnd.esage.tasks+json",
+            "href": "https://192.168.3.184:443/api/admin/enterprises/1/users/33/action/pendingtasks"
+        },
+        {
+            "title": "applications",
+            "rel": "applications",
+            "type": "application/vnd.esage.applications+json",
+            "href": "https://192.168.3.184:443/api/admin/enterprises/1/users/33/applications"
+        }
+    ],
+    "locale": "en_US",
+    "name": "test",
+    "nick": "test",
+    "paymentMode": "prepay",
+    "resourceApplication": "",
+    "roleId": 1,
+    "surname": "test"
+}
 }

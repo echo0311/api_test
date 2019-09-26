@@ -56,12 +56,11 @@ class OperationHeader:
 
     # 从配置文件中读取headers信息
     def get_headers(self, accept=None, content_type=None):
-        headers_option = self.oper_ini.get_options('headers')
-        if 'cookie' in headers_option:
-            # headers = self.oper_ini.get_items('headers')
-            self.oper_ini.remove_value('headers','cookie')
-        self.write_cookie_ini()
         headers = self.oper_ini.get_items('headers')
+        if 'cookie' not in headers:
+            self.write_cookie_ini()
+            headers = self.oper_ini.get_items('headers')
+
         if accept is not None:
             headers['Accept'] = accept
         if content_type is not None:
@@ -71,4 +70,5 @@ class OperationHeader:
 
 if __name__ == '__main__':
     oper = OperationHeader()
+    oper.write_cookie()
     print(oper.get_headers())

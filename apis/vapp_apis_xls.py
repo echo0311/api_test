@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from base.api_base import ApiBase
+from base.api_base_old import ApiBase
 
 
 # 查看多个VAPP接口
