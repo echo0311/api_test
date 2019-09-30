@@ -2,15 +2,16 @@
 import requests
 from util.operation_json import OperationJson
 from util.operation_ini import OperationIni
+import os
 
 requests.packages.urllib3.disable_warnings()
 
 
 class OperationHeader:
     def __init__(self):
-        self.file_path = '../config/base.ini'
-        self.oper_json = OperationJson('../dataconfig/cookies.json')
-        self.oper_ini = OperationIni(self.file_path)
+        self.base_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+        # self.oper_json = OperationJson(self.base_path + '\\dataconfig\\cookies.json')
+        self.oper_ini = OperationIni(self.base_path + '\\config\\base.ini')
 
     def request_cookie(self):
         '''
@@ -60,15 +61,21 @@ class OperationHeader:
         if 'cookie' not in headers:
             self.write_cookie_ini()
             headers = self.oper_ini.get_items('headers')
-
         if accept is not None:
             headers['Accept'] = accept
         if content_type is not None:
             headers['Content-Type'] = content_type
         return headers
 
+    #判断cookie是否存在
+    def is_cookie(self):
+        headers = self.oper_ini.get_items('headers')
+        if 'cookie' in headers:
+            self.oper_ini.remove_value('headers','cookied')
+        self.write_cookie_ini()
+
 
 if __name__ == '__main__':
     oper = OperationHeader()
-    oper.write_cookie()
+    oper.write_cookie_ini()
     print(oper.get_headers())

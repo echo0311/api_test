@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import configparser
+import os
 
 
 class OperationIni(object):
 
     def __init__(self, file_name=None):
         if file_name is None:
-            self.file_name = "../config/base.ini"
+            self.base_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+            self.file_name = self.base_path + "\\config\\base.ini"
         else:
             self.file_name = file_name
         self.cf = self.load_ini()
@@ -17,7 +19,7 @@ class OperationIni(object):
         return cf
 
     # 获取section下的options
-    def get_options(self,section):
+    def get_options(self, section):
         data = self.cf.options(section)
         return data
 
@@ -32,8 +34,8 @@ class OperationIni(object):
         return dict(data)
 
     # 删除setion下的一项数据
-    def remove_value(self,section, option):
-        self.cf.remove_option(section,option)
+    def remove_value(self, section, option):
+        self.cf.remove_option(section, option)
 
     # 写数据
     def write_value(self, section, option, value):

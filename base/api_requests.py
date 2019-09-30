@@ -43,8 +43,8 @@ class RunMethod:
         if headers is None:
             res = requests.delete(url=url, data=data, verify=False).json()  # verify=False 忽略SSL错误
         else:
-            res = requests.delete(url=url, data=data, headers=headers, verify=False).json()
-        return json.dumps(res, indent=2, sort_keys=True, ensure_ascii=False)
+            res = requests.delete(url=url, data=data, headers=headers, verify=False)
+        return res
 
     def run_main(self, url, method, data=None, headers=None):
         res = None

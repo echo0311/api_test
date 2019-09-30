@@ -40,8 +40,8 @@ class AddAccount(BaseAPI):
 
 # 编辑用户
 class EditAccount(BaseAPI):
-    def __init__(self):
-        self.user = None
+    def __init__(self,account_info=None):
+        self.account_info = account_info
         super().__init__()
 
     # 依赖接口
@@ -51,8 +51,11 @@ class EditAccount(BaseAPI):
         return json.loads(res)
 
     def get_path(self):
-        self.user = self.relation_api()
-        path = '/api/admin/enterprises/1/users/{user_id}'.format(user_id=self.user['id'])
+        if self.account_info is None:
+            self.account_info = self.relation_api()
+        if not isinstance(self.account_info,dict):
+            self.account_info = json.loads(self.account_info)
+        path = '/api/admin/enterprises/1/users/{user_id}'.format(user_id=self.account_info['id'])
         return path
 
     def get_header(self):
@@ -63,9 +66,9 @@ class EditAccount(BaseAPI):
 
     def get_request_data(self):
         data = self.oper_json.get_data('edit_user')
-        data['name'] = self.user['name'] + 'edit'
-        data['nick'] = self.user['nick']
-        data['id'] = self.user['id']
+        data['name'] = self.account_info['name'] + 'edit'
+        data['nick'] = self.account_info['nick']
+        data['id'] = self.account_info['id']
         return json.dumps(data)
 
     def run(self):
@@ -77,8 +80,8 @@ class EditAccount(BaseAPI):
 
 
 class DeleteAccount(BaseAPI):
-    def __init__(self):
-        self.user = None
+    def __init__(self,account_info=None):
+        self.account_info = account_info
         super().__init__()
 
     # 依赖接口
@@ -88,8 +91,11 @@ class DeleteAccount(BaseAPI):
         return json.loads(res)
 
     def get_path(self):
-        self.user = self.relation_api()
-        path = '/api/admin/enterprises/1/users/{user_id}'.format(user_id=self.user['id'])
+        if self.account_info is None:
+            self.account_info = self.relation_api()
+        if not isinstance(self.account_info, dict):
+            self.account_info = json.loads(self.account_info)
+        path = '/api/admin/enterprises/1/users/{user_id}'.format(user_id=self.account_info['id'])
         return path
 
     def get_header(self):
@@ -100,10 +106,15 @@ class DeleteAccount(BaseAPI):
     def run(self):
         url = self.get_url()
         header = self.get_header()
-        res = self.run_method.run_main(url, 'DELETE', header)
+        res = self.run_method.run_main(url, 'DELETE', headers=header)
         return res
 
 
 if __name__ == '__main__':
-    edit_account = EditAccount()
+    add_account = AddAccount()
+    res = add_account.run()
+    edit_account = EditAccount(res)
+    del_accout = DeleteAccount(res)
     print(edit_account.run())
+    res1=del_accout.run()
+    print(res1.status_code)

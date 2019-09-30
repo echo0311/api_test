@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import json
-
+import os
 
 class OperationJson:
     def __init__(self, file_path=None):
         if file_path is None:
-            self.file_path = "../dataconfig/request_data.json"
+            self.base_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+            self.file_path = self.base_path+"\\dataconfig\\request_data.json"
         else:
             self.file_path = file_path
         self.data = self.get_json()
