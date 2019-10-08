@@ -2,6 +2,7 @@
 import logging
 import os
 import datetime
+import sys
 
 
 class Log(object):
@@ -21,7 +22,13 @@ class Log(object):
         formatter = logging.Formatter(
             '%(asctime)s %(filename)s--> %(funcName)s %(levelno)s: %(levelname)s ----->%(message)s')
         self.file_handle.setFormatter(formatter)
+
+        # 控制台输出日志
+        self.ch = logging.StreamHandler(stream=sys.stdout)
+        self.ch.setLevel(logging.DEBUG)
+        self.ch.setFormatter(formatter)
         self.logger.addHandler(self.file_handle)
+        self.logger.addHandler(self.ch)
 
     def get_log(self):
         return self.logger

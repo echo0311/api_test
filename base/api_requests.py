@@ -8,43 +8,56 @@ requests.packages.urllib3.disable_warnings()
 class RunMethod:
     def __init__(self, host=None):
         if host is None:
-            self.host = 'https://192.168.0.114'
+            self.host = 'https://192.168.2.183'
         else:
             self.host = host
 
     def send_get(self, url, data=None, headers=None):
         res = None
-        if headers is None:
-            res = requests.get(url=url, data=data, verify=False).json()  # verify=False 忽略SSL错误
-        else:
-            # res = requests.get(url=url, data=data, headers=headers, verify=False).json()
-            res = requests.get(url=url, data=data, headers=headers, verify=False).text
-        # return json.dumps(res, indent=2, sort_keys=True, ensure_ascii=False)
-        return json.loads(res)
+        try:
+            if headers is None:
+                # res = requests.get(url=url, data=data, verify=False).json()  # verify=False 忽略SSL错误
+                res = requests.get(url=url, data=data, verify=False)
+            else:
+                # res = requests.get(url=url, data=data, headers=headers, verify=False).json()
+                res = requests.get(url=url, data=data, headers=headers, verify=False)
+            # return json.dumps(res, indent=2, sort_keys=True, ensure_ascii=False)
+            return res
+        except (requests.ConnectionError,requests.HTTPError,requests.URLRequired,requests.Timeout,requests.ConnectTimeout) as e:
+            print(e)
 
     def send_post(self,url, data, headers=None):
         res = None
-        if headers is None:
-            res = requests.post(url=url, data=data, verify=False).json()
-        else:
-            res = requests.post(url=url, data=data, headers=headers, verify=False).json()
-        return json.dumps(res, indent=2, sort_keys=True, ensure_ascii=False)
+        try:
+            if headers is None:
+                res = requests.post(url=url, data=data, verify=False)
+            else:
+                res = requests.post(url=url, data=data, headers=headers, verify=False)
+            return res
+        except (requests.ConnectionError, requests.HTTPError, requests.URLRequired, requests.Timeout, requests.ConnectTimeout) as e:
+            print(e)
 
     def send_put(self, url, data=None, headers=None):
         res = None
-        if headers is None:
-            res = requests.put(url=url, data=data, verify=False).json()
-        else:
-            res = requests.put(url=url, data=data, headers=headers, verify=False).json()
-        return json.dumps(res, indent=2, sort_keys=True, ensure_ascii=False)
+        try:
+            if headers is None:
+                res = requests.put(url=url, data=data, verify=False)
+            else:
+                res = requests.put(url=url, data=data, headers=headers, verify=False)
+            return res
+        except (requests.ConnectionError, requests.HTTPError, requests.URLRequired, requests.Timeout, requests.ConnectTimeout) as e:
+            print(e)
 
     def send_delete(self, url, data=None, headers=None):
         res = None
-        if headers is None:
-            res = requests.delete(url=url, data=data, verify=False).json()  # verify=False 忽略SSL错误
-        else:
-            res = requests.delete(url=url, data=data, headers=headers, verify=False)
-        return res
+        try:
+            if headers is None:
+                res = requests.delete(url=url, data=data, verify=False)  # verify=False 忽略SSL错误
+            else:
+                res = requests.delete(url=url, data=data, headers=headers, verify=False)
+            return res
+        except (requests.ConnectionError, requests.HTTPError, requests.URLRequired, requests.Timeout, requests.ConnectTimeout) as e:
+            print(e)
 
     def run_main(self, url, method, data=None, headers=None):
         res = None
