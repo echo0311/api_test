@@ -110,6 +110,27 @@ class DeleteAccount(BaseAPI):
         return res
 
 
+class GetUserGroup(BaseAPI):
+    def __init__(self):
+        super().__init__()
+
+    def get_path(self):
+        path = '/api/admin/enterprises/1/usergroup'
+        return path
+
+    def get_header(self):
+        accept = 'application/vnd.esage.usergroups+json; version=3.0'
+        content_type = 'application/vnd.esage.usergroups+json; version=3.0'
+        headers = self.oper_h.get_headers(accept, content_type)
+        return headers
+
+    def run(self):
+        url = self.get_url()
+        header = self.get_header()
+        res = self.run_method.run_main(url, 'GET', headers=header)
+        return res
+
+
 if __name__ == '__main__':
     add_account = AddAccount()
     res = add_account.run()
